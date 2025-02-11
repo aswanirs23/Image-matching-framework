@@ -1,0 +1,5 @@
+URL = "https://www.trypencil.com/"
+TEMPLATE_DIR = "images/baseline_images/" 
+SCREENSHOT_PATH = "images/page_screenshot/page_screenshot.png"
+MATCH_RESULT_IMAGES_DIR = "output/match_result_images/"
+IMAGE_DIR = "images/downloaded_thumbnails/"
