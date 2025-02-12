@@ -3,7 +3,7 @@
 ## Table of Contents
 
 - [Overview](#Overview)
-- [Features] (#features)
+- [Features](#Features)
 - [Installation](#installation)
 - [Running Tests](#running-tests)
 - [Folder Structure](#folder-structure)
