@@ -3,14 +3,18 @@ import numpy as np
 import os
 import requests
 from sklearn.cluster import DBSCAN
+from src.utils.logger_util import logger
 
 def load_image(image_path):
+    """Loads an image from the given path and converts it to grayscale."""
     image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
     if image is None:
         raise ValueError(f"Error loading image: {image_path}")
     return image
 
+
 def match_images(template, screenshot, match_threshold=20, eps_factor=0.05, min_samples=3, cluster_ratio=0.5):
+    """Matches two images using SIFT and Flann based matcher."""
     template = load_image(template)
     screenshot = load_image(screenshot)
     sift = cv2.SIFT_create()
@@ -43,7 +47,9 @@ def match_images(template, screenshot, match_threshold=20, eps_factor=0.05, min_
 
     return good_matches, template_kp, screenshot_kp, is_present
 
+
 def compare_images(image1_path, image2_path):
+    """Compares two images using pixel-based difference calculation."""
     img1 = cv2.imread(image1_path)
     img2 = cv2.imread(image2_path)
 
@@ -55,7 +61,9 @@ def compare_images(image1_path, image2_path):
     _, thresh = cv2.threshold(gray, 30, 255, cv2.THRESH_BINARY)
     return np.count_nonzero(thresh) == 0
 
+
 def download_image(image_url, save_path):
+    """Downloads an image from the given URL and saves it to the specified path."""
     response = requests.get(image_url, stream=True)
     if response.status_code == 200:
         with open(save_path, "wb") as file:
@@ -64,11 +72,12 @@ def download_image(image_url, save_path):
         return True
     return False
 
+
 def process_thumbnails(thumbnails, template_paths, image_dir):
+    """Processes thumbnails and compares them with templates."""
     os.makedirs(image_dir, exist_ok=True)
 
     for template_path in template_paths:
-        
         for index, thumbnail in enumerate(thumbnails):
             image_url = thumbnail.get_attribute("src")
 
@@ -76,12 +85,13 @@ def process_thumbnails(thumbnails, template_paths, image_dir):
             download_image(image_url, image_path)
             
             if compare_images(image_path, template_path):
-                print(f"✅ Match Found: {template_path} matches {image_path}")
-                break  # Stop comparing this template further
+                logger.info(f"✅ Match Found: {template_path} matches {image_path}")
+                break
         else:
-            print(f"❌ No match found for template {template_path}")
+            logger.info(f"❌ No match found for template {template_path}")
 
-    print("Finished processing all templates")
+    logger.info("Finished processing all templates")
+
 
 def draw_matched_image(template_path, screenshot_path, matches, kp1, kp2, output_path):
     """Draws and saves matched keypoints between two images."""
@@ -89,7 +99,7 @@ def draw_matched_image(template_path, screenshot_path, matches, kp1, kp2, output
     screenshot_img = cv2.imread(screenshot_path)
 
     if template_img is None or screenshot_img is None:
-        print(f"❌ Error loading images: {template_path} or {screenshot_path}")
+        logger.info(f"❌ Error loading images: {template_path} or {screenshot_path}")
         return
 
     match_result_img = cv2.drawMatches(template_img, kp1, screenshot_img, kp2, matches[:50], None, flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)

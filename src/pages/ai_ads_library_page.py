@@ -4,9 +4,6 @@ import time
 class AIAdsLibraryPage:
     def __init__(self, page: Page):
         self.page = page
-         
-    def get_thumbnail(self, index):
-        return self.thumbnails[index]
     
     def btn_filter(self):
         return self.page.get_by_role("button", name="Ad Channels")
@@ -18,6 +15,9 @@ class AIAdsLibraryPage:
         self.btn_filter().click()
         self.opt_facebook_filter().click()
         self.btn_filter().click()
+        
+    def get_thumbnail(self, index):
+        return self.thumbnails[index]
     
     def get_thumbnail_urls(self):
         time.sleep(5) 

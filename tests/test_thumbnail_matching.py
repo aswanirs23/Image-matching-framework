@@ -14,14 +14,18 @@ def test_compare_thumbnails_with_templates(page):
     
     page.goto(URL)
     expect(home_page.txt_header()).to_be_visible()
+    logger.info("Header 'Make ads that work.' is visible in the page")
     home_page.go_to_ai_ads_library()
+    logger.info("Navigating to AI Ads Library")
     ai_ads_page.apply_facebook_filter()
+    logger.info("Applying Facebook filter")
     
     thumbnails = ai_ads_page.get_thumbnail_urls()
     logger.info(f"Found {len(thumbnails)} thumbnails")
     
     template_paths = glob.glob(f"{TEMPLATE_DIR}/*.png")
     logger.info(f"Found {len(template_paths)} template images")
+    
     process_thumbnails(thumbnails, template_paths, IMAGE_DIR)
     
     logger.info("✅ Thumbnail comparison test completed.")
