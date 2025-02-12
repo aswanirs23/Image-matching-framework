@@ -20,7 +20,7 @@ The Automated Image Comparison Framework is designed to facilitate the compariso
 - **Thumbnail Matching**: Extracts thumbnail images from web pages and compares them with predefined templates to ensure consistency.
 - **Logging**: Provides detailed logging of test execution and results for easy debugging and analysis.
 
-### Installation
+## Installation
 
 1. Clone the repository:
 
