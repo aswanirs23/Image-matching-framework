@@ -1,6 +1,7 @@
 import os
 import time
 import glob
+import allure
 from playwright.sync_api import expect
 from src.utils.logger_util import logger
 from src.pages.ai_ads_library_page import AIAdsLibraryPage
@@ -9,6 +10,8 @@ from src.utils.image_utils import match_images, draw_matched_image
 from src.utils.file_handles import ensure_directory_exists, delete_file, capture_screenshot
 from config import URL, TEMPLATE_DIR, SCREENSHOT_PATH, MATCH_RESULT_IMAGES_DIR
 
+@allure.feature("Image Comparison with feature matching")
+@allure.story("Compare screenshot with templates")
 def test_compare_screenshot_with_templates(page):
     logger.info("Starting test screenshot matching with templates ")
     home_page = HomePage(page)
@@ -39,9 +42,13 @@ def test_compare_screenshot_with_templates(page):
             template_name = os.path.splitext(os.path.basename(img))[0]
             match_result_img_path = os.path.join(MATCH_RESULT_IMAGES_DIR, f"matched_{template_name}.jpg")
 
+            draw_matched_image(img, SCREENSHOT_PATH, matches, kp1, kp2, match_result_img_path)
+            allure.attach.file(match_result_img_path, name=f"Match Result - {template_name}", attachment_type=allure.attachment_type.JPG)
+            
             if is_present:
-                draw_matched_image(img, SCREENSHOT_PATH, matches, kp1, kp2, match_result_img_path)
+                
                 logger.info(f"✅ Match found for {img} and comparison image saved at {match_result_img_path}")
             else:
                 logger.info(f"❌ No match found for {img}")
-    logger.info("Test Image matching with templates completed")
+    with allure.step("Test completion"):
+        logger.info("Test Image matching with templates completed")
