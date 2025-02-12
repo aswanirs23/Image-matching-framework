@@ -1,4 +1,4 @@
-# Automated Image Comparison Framework
+# Image Matching Framework
 
 ## Table of Contents
 
