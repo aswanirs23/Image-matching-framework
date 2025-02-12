@@ -1,0 +1,7 @@
+numpy==2.2.2
+opencv-python==4.11.0.86
+playwright==1.50.0
+pytest==8.3.4
+requests==2.32.3
+scikit-learn==1.6.1
+scipy==1.15.1

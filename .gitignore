@@ -1,0 +1,11 @@
+venv/
+pycache/
+__pycache__/
+.pytest_cache/
+
+images/downloaded_thumbnails/
+images/page_screenshot/
+
+output/
+output/match_result_images/
+output/logs/
