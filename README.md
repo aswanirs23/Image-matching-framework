@@ -62,7 +62,7 @@ The Automated Image Comparison Framework is designed to facilitate the compariso
 You can generate and view the report using:
 
 ```bash
-allure serve ./allure-results
+allure serve output/allure-results
 ```
 
 
