@@ -9,3 +9,5 @@ images/page_screenshot/
 output/
 output/match_result_images/
 output/logs/
+
+allure-results/

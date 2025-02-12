@@ -1,4 +1,5 @@
 import glob
+import allure
 
 from playwright.sync_api import expect
 from src.utils.logger_util import logger
@@ -7,6 +8,8 @@ from src.pages.home_page import HomePage
 from src.utils.image_utils import process_thumbnails
 from config import URL, TEMPLATE_DIR, IMAGE_DIR
 
+@allure.feature("Thumbnail Comparison with Templates")
+@allure.story("Compare Thumbnails with Stored Templates")
 def test_compare_thumbnails_with_templates(page):
     logger.info("Starting test thumbnail matching with templates ")
     ai_ads_page = AIAdsLibraryPage(page)
@@ -28,4 +31,5 @@ def test_compare_thumbnails_with_templates(page):
     
     process_thumbnails(thumbnails, template_paths, IMAGE_DIR)
     
-    logger.info("✅ Thumbnail comparison test completed.")
+    with allure.step("Test completion"):
+        logger.info("✅ Thumbnail comparison test completed.")
