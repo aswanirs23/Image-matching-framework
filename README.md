@@ -6,6 +6,7 @@
 - [Features](#Features)
 - [Installation](#installation)
 - [Running Tests](#running-tests)
+- [Reporting](#reporting)
 - [Folder Structure](#folder-structure)
 - [Coding Standards](#coding-standards)
 
@@ -55,6 +56,15 @@ The Automated Image Comparison Framework is designed to facilitate the compariso
     ```bash
     pytest -s
     ```
+
+## Allure Reporting
+
+You can generate and view the report using:
+
+```bash
+allure serve ./allure-results
+```
+
 
 ## Folder Structure
 
